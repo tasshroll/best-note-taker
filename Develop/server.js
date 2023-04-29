@@ -51,35 +51,45 @@ app.post('/api/notes', (req, res) => {
             id: nanoid(),
         }
         console.log(`Note title is ${title} and note text is ${text}`);
+        addNote(newNote, res);
 
-        // Read contents of db.json, parse, and then push new note object into the array
-        fs.readFile('./db/db.json', (err, storedNotes) => {
-            if (err) {
-                console.log(err);
-                return res.status(500).send("Error reading db");
-            }
-            const notesArr = JSON.parse(storedNotes);
-            notesArr.push(newNote);
-            const jsonNotesArr = JSON.stringify(notesArr);
-            console.log ("DB is ", jsonNotesArr);
-
-            fs.writeFile('./db/db.json', jsonNotesArr, (err) => {
-                if (err) {
-                    console.log(err)
-                } else {
-                    console.log('Note is added to database.');
-                    res.json(newNote);
-                }
-            });
-
-
-            // fs.writeFile('./examples/logo.svg', svgCode, (err) =>
-            //     err ? console.log(err) : console.log('Success! Generated logo.svg!')
-            // );
-        });
     };
 });
 
 app.listen(PORT, () =>
     console.log(`Express server listening on port ${PORT}`)
 );
+
+
+function addNote(newNote, res) {
+    // Add new note to db.json
+    // Read contents of db.json, parse the ddata, and then push new note object into the array
+    fs.readFile('./db/db.json', (err, storedNotes) => {
+        if (err) {
+            console.log(err);
+            return res.status(500).send("Error reading db");
+        }
+        const notesArr = JSON.parse(storedNotes);
+        notesArr.push(newNote);
+        //const jsonNotesArr = JSON.stringify(notesArr);
+
+
+
+        const formattedNotesArr = notesArr.map(({title, text}) => ({title, text}));
+        const jsonNotesArr = JSON.stringify(formattedNotesArr, null, 4); // pretty print with 4 spaces indentation
+
+
+
+        console.log("DB is ", jsonNotesArr);
+
+        fs.writeFile('./db/db.json', jsonNotesArr, (err) => {
+            if (err) {
+                console.log(err)
+            } else {
+                console.log('Note is added to database as', newNote);
+                // Send client the newNote in the response
+                res.json(newNote);
+            }
+        }); // end of writeFile
+    }); // end of readFile
+}
