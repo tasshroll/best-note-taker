@@ -62,6 +62,8 @@ app.delete('/api/notes/:id', (req, res) => {
     // console.log ("Req is ", req.query);
     const id = req.params.id;
     console.log("Query is : ", id);
+    removeNote(id, res);
+
 
 }); // end app.delete
 
@@ -125,7 +127,7 @@ function removeNote(id, res) {
         const notesArr = JSON.parse(storedNotes);
         for (let i = 0; i < notesArr.length; i++) {
             const noteID = notesArr[i].id;
-            if (noteID = id) {
+            if (noteID == id) {
                 console.log("Object to remove is :", notesArr[i]);
                 // remove that object
                 notesArr.splice(i, 1); // remove 1 object at index i
@@ -144,7 +146,7 @@ function removeNote(id, res) {
             if (err) {
                 console.log(err)
             } else {
-                console.log('Note deleted from the database was', newNote);
+                console.log('Note deleted from the database was id ', id);
                 // Send client the newNote in the response
                 res.json(notesArr);
             }
