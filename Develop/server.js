@@ -1,8 +1,8 @@
 let express = require('express');
 let fs = require('fs');
-const db = require('./db/db.json'); 
+const db = require('./db/db.json');
 const path = require('path');
-const nanoid = require(`nanoid`);
+const { nanoid } = require(`nanoid`);
 
 const PORT = 3001;
 
@@ -38,24 +38,48 @@ app.get('*', (req, res) => {
 //`POST /api/notes` should receive a new note to save on the request body, add it to the `db.json` file, 
 //and then return the new note to the client. You'll need to find a way to give each note a unique id when 
 //it's saved (look into npm packages that could do this for you).
-// app.post('/api/notes', (req, res) => {
-//     // Log that post request was received
-//     console.log(`${req.method} request was received to add a new note`);
+app.post('/api/notes', (req, res) => {
+    // Log that post request was received
+    console.log(`${req.method} request was received to add a new note`);
 
-//     // destructure the note title and text from request body
-//     const { title, text } = req.body;
-//     console.log(`Note title is ${title} and note text is ${text}`);
-//     if (title && text){
-//         const newNote ={
-//             title,
-//             text,
-//             id : nanoid(),
-//         }
-//         console.log("newNote to store is "newNote);
-//         //fs.appendFile(db),newNote
-//      }
-// }
-//
-app.listen (PORT, () =>
+    // destructure the note title and text from request body
+    const { title, text } = req.body;
+    if (title && text) {
+        const newNote = {
+            title,
+            text,
+            id: nanoid(),
+        }
+        console.log(`Note title is ${title} and note text is ${text}`);
+
+        // Read contents of db.json, parse, and then push new note object into the array
+        fs.readFile('./db/db.json', (err, storedNotes) => {
+            if (err) {
+                console.log(err);
+                return res.status(500).send("Error reading db");
+            }
+            const notesArr = JSON.parse(storedNotes);
+            notesArr.push(newNote);
+            const jsonNotesArr = JSON.stringify(notesArr);
+            console.log ("DB is ", jsonNotesArr);
+
+            fs.writeFile('./db/db.json', jsonNotesArr, (err) => {
+                if (err) {
+                    console.log(err)
+                } else {
+                    console.log('Note is added to database.');
+                    res.json(newNote);
+                }
+            });
+
+
+            // fs.writeFile('./examples/logo.svg', svgCode, (err) =>
+            //     err ? console.log(err) : console.log('Success! Generated logo.svg!')
+            // );
+        });
+    };
+});
+
+app.listen(PORT, () =>
     console.log(`Express server listening on port ${PORT}`)
 );
