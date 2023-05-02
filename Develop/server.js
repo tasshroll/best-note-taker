@@ -63,8 +63,6 @@ app.delete('/api/notes/:id', (req, res) => {
     const id = req.params.id;
     console.log("Query is : ", id);
     removeNote(id, res);
-
-
 }); // end app.delete
 
 
@@ -125,34 +123,38 @@ function removeNote(id, res) {
             return res.status(500).send("Error reading db");
         }
         const notesArr = JSON.parse(storedNotes);
+        let removed = false;
         for (let i = 0; i < notesArr.length; i++) {
             const noteID = notesArr[i].id;
             if (noteID == id) {
                 console.log("Object to remove is :", notesArr[i]);
                 // remove that object
                 notesArr.splice(i, 1); // remove 1 object at index i
+                removed = true;
+                // exit out of loop
+                break;
             }
         }
-        console.log("notesArr with the deleted note is ", notesArr);
+        if (!removed) {
+            return res.status(404).send("Note not found");
+        }
 
         // null is used to replace any function values in the object with null to ensure that 
         // the stringified object is valid JSON. The argument 4 specifies the number of spaces to 
         // use for indentation, by adding 4 spaces of indentation for each nested level. 
         const jsonNotesArr = JSON.stringify(notesArr, null, 4); // pretty print with 4 spaces indentation
-
-        console.log("Stringified DB is ", jsonNotesArr);
-
+        //console.log("Stringified DB is ", jsonNotesArr);
         fs.writeFile('./db/db.json', jsonNotesArr, (err) => {
             if (err) {
                 console.log(err)
-            } else {
-                console.log('Note deleted from the database was id ', id);
-                // Send client the newNote in the response
-                res.json(notesArr);
+                return res.status(500).send("Error writing to db");
             }
+            console.log('Note deleted from the database was id ', id);
+            // Send client the new notesArr in the response
+            res.json(notesArr);
         }); // end of writeFile
     }); // end of readFile
-} // end of add Note
+} // end of removve Note
 
 
 
