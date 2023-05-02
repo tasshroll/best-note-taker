@@ -103,12 +103,12 @@ function addNote(newNote, res) {
 
         fs.writeFile('./db/db.json', jsonNotesArr, (err) => {
             if (err) {
-                console.log(err)
-            } else {
-                console.log('Note is added to database as', newNote);
-                // Send client the newNote in the response
-                res.json(newNote);
+                console.log(err);
+                return res.status(500).send("Error writing to db");
             }
+            console.log('Note added to database as', newNote);
+            // Send client the newNote in the response
+            res.json(newNote);
         }); // end of writeFile
     }); // end of readFile
 } // end of add Note
