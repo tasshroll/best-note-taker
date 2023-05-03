@@ -4,8 +4,11 @@ const db = require('./db/db.json');
 const path = require('path');
 const { nanoid } = require(`nanoid`);
 
-const PORT = 3001;
+//const PORT = 3001;
+// needed for server to run on Heroku platform
+git
 
+// instantiate express in var app
 const app = express();
 
 // handle incoming requests with JSON or URL-encoded payloads, 
