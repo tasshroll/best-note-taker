@@ -6,7 +6,7 @@ const { nanoid } = require(`nanoid`);
 
 //const PORT = 3001;
 // needed for server to run on Heroku platform
-git
+const PORT = process.env.PORT || 3001;
 
 // instantiate express in var app
 const app = express();
