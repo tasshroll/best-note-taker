@@ -5,6 +5,13 @@
 
 [![License](https://img.shields.io/badge/License-n/a-n/a.svg)](n/a)
 
+## Git Hub Repository
+https://github.com/tasshroll/best-note-taker
+
+## Heroku Deployed Site
+https://git.heroku.com/tifs-best-note-taker.git
+
+
 ## Table of Contents
 
 [Installation](#installation)
@@ -49,5 +56,3 @@ THEN I am presented with empty fields to enter a new note title and the note’s
 ```
 
 
-## Git Hub Repository
-https://github.com/tasshroll/best-note-taker
