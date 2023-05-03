@@ -9,8 +9,7 @@
 https://github.com/tasshroll/best-note-taker
 
 ## Heroku Deployed Site
-https://git.heroku.com/tifs-best-note-taker.git
-
+https://tifs-best-note-taker.herokuapp.com/
 
 ## Table of Contents
 
