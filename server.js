@@ -31,11 +31,6 @@ app.get('/api/notes', (req, res) => {
     console.log("api/notes is called, sending db.json");
     res.json(db);
 });
-//`GET *` should return the `index.html` file.
-app.get('*', (req, res) => {
-    console.log("/ is called");
-    res.sendFile(path.join(__dirname, '/public/index.html'))
-});
 
 //`POST /api/notes` should receive a new note to save on the request body, add it to the `db.json` file, 
 //and then return the new note to the client. Each note is given a unique id using nanoid package
@@ -80,6 +75,13 @@ app.delete('/api/notes/:id', (req, res) => {
 //       'Content-Type': 'application/json',
 //     },
 //   });
+
+//`GET *` should return the `index.html` file.
+app.get('*', (req, res) => {
+    console.log("/ is called");
+    res.sendFile(path.join(__dirname, '/public/index.html'))
+});
+
 app.listen(PORT, () =>
     console.log(`Express server listening on port ${PORT}`)
 );
