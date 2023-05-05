@@ -19,6 +19,11 @@ app.use(express.urlencoded({ extended: true }));
 // Allows reference to files with their relative path
 app.use(express.static("public"));
 
+app.use((req, res, next) => {
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    next();
+  });
+  
 // Routes
 
 // `GET /notes` should return the `notes.html` file.
@@ -28,7 +33,7 @@ app.get('/notes', (req, res) => {
 });
 // `GET /api/notes` should read the `db.json` file and return all saved notes as JSON.
 app.get('/api/notes', (req, res) => {
-    console.log("api/notes is called, sending db.json");
+    console.log("/api/notes is called, sending db.json");
     res.json(db);
 });
 
