@@ -11,13 +11,19 @@ https://github.com/tasshroll/best-note-taker
 ## Heroku Deployed Site
 https://tifs-best-note-taker.herokuapp.com/
 
+## Screenshot
+Add a new Note
+![Add a note](Assets/Add-a-note.png)
+
+Save a note, click floppy disk
+![Save a note](Assets/Save-a-note.png)
+
 ## Table of Contents
 
 [Installation](#installation)
 
 [Usage](#usage)
 
-[Questions](#questions)
 
 ## Installation
  The application has a front end (index.html, notes.html, index.js). This application uses an Express.js back end and will save and retrieve note data from a JSON file named db.json. The application is deployed to Heroku.
