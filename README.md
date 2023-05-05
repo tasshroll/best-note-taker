@@ -21,23 +21,33 @@ https://tifs-best-note-taker.herokuapp.com/
 
 ## Installation
  The application has a front end (index.html, notes.html, index.js). This application uses an Express.js back end and will save and retrieve note data from a JSON file named db.json. The application is deployed to Heroku.
+ To run locally, Type;
+ ```
  npm i 
+
  npm i express
+ ```
 
 ## Usage
- type "nodemon server.js:
+Run from:  https://tifs-best-note-taker.herokuapp.com/
+
+ Or run locally, type
+
+ ```
+ nodemon server.js
+ ```
+
  Nodemon is a command line tool that automatically restarts the node application when it detects changes.
 
- Open a browser and type localhost:3001 to open application. Enter and delete notes. You will need to refresh the browser to see the notes added or deleted on the left side of the column.
-
-Criteria
- AS A small business owner
+ Open a browser and type localhost:3001 to open application. Enter and delete notes. You will see notes added or deleted on the left side of the column.
+```
+## Criteria
+AS A small business owner
 I WANT to be able to write and save notes
 SO THAT I can organize my thoughts and keep track of tasks I need to complete
+
 ```
-
 ## Acceptance Criteria
-
 ```
 GIVEN a note-taking application
 WHEN I open the Note Taker

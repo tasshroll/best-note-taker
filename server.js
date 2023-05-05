@@ -29,7 +29,7 @@ app.use((req, res, next) => {
 // `GET /api/notes` should read the `db.json` file and return all saved notes as JSON.
 app.get('/api/notes', (req, res) => {
     console.log("/api/notes is called, sending db.json");
-    res.json(db);
+    res.sendFile(path.join(__dirname, './db/db.json'));
 });
 
 //`POST /api/notes` should receive a new note to save on the request body, add it to the `db.json` file, 
