@@ -26,11 +26,6 @@ app.use((req, res, next) => {
   
 // Routes
 
-// `GET /notes` should return the `notes.html` file.
-app.get('/notes', (req, res) => {
-    console.log("/notes is called");
-    res.sendFile(path.join(__dirname, '/public/notes.html'))
-});
 // `GET /api/notes` should read the `db.json` file and return all saved notes as JSON.
 app.get('/api/notes', (req, res) => {
     console.log("/api/notes is called, sending db.json");
@@ -80,6 +75,11 @@ app.delete('/api/notes/:id', (req, res) => {
 //       'Content-Type': 'application/json',
 //     },
 //   });
+// `GET /notes` should return the `notes.html` file.
+app.get('/notes', (req, res) => {
+    console.log("/notes is called");
+    res.sendFile(path.join(__dirname, '/public/notes.html'))
+});
 
 //`GET *` should return the `index.html` file.
 app.get('*', (req, res) => {
